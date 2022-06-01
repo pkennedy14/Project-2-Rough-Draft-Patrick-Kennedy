@@ -1,0 +1,85 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Introduction:
+
+Scientific Question:
+Because alternative splicing leads to different isoforms for the human Retinoic acid receptor-alpha, could these differing sequences lead to an effect on ligand binding with the receptor?
+
+Scientific Hypothesis:
+If there are differences between Retinoic acid receptor-alpha isoforms in their sequence, then we could be expected to say an effect on the receptors binding ability to its ligands
+
+Background:
+
+Description of Analyses done: 
+The bioinformatic methods that will be used for my Project 2 are pairwise sequence alignment and Structural bioinformatics modelsw. T Pairwise sequence alignment will be used in the context of my hypothesis to show the differences in sequences between RAR-a and RAR-b, and my focus of this alignment will be on the hormone binding region. If there is a significant difference in sequences in this region, then maybe it could be a reason for the difference in mRNA expression regulation between the different isotypes. This method can then be plotted using sequence logos to visualize the data. 
+
+
+```{r}
+#Load packages
+#library(seqinr)
+#seqinr is a package which facilitates biological sequence retrieval and analysis
+#library(Biostrings)
+#Biostrings is a package which allows for the manipulation of biological strings
+#library(BiocManager)
+#BiocManager allows for the access to the bioconductor package repository 
+#library(annotate)
+
+
+#The data type read in is a fasta file of amino acid sequences
+#Read in RAR-alpha isoform 1 fasta file
+DNA_RARA1<- readDNAStringSet("RARA1_Human.fasta")
+#Check data class
+data.class(DNA_RARA1)
+
+#DNA_RARA1 code checks 
+length(DNA_RARA1)
+nchar(DNA_RARA1)
+
+#Convert DNA string set to character vectror
+DNA_RARA1_S<- toString(DNA_RARA1)
+length(DNA_RARA_S)
+DNA_RARA_S
+
+
+```
+
+
+
+```{r}
+#Read in fasta dile for RAR-alpha isoform 2
+DNA_RARA2<- readDNAStringSet("RARA2_Human.fasta")
+#Check data class
+data.class(DNA_RARA2)
+
+#Code checks
+length(DNA_RARA2)
+nchar(DNA_RARA2)
+
+#Produce character vector 
+DNA_RARA2_S<- toString(DNA_RARA2)
+length(DNA_RARA2_S)
+DNA_RARA2_S
+
+```
+
+```{r}
+#Conduct pairwise alignment on the two isoforms 
+pairwiseAlignment(DNA_RARA1, DNA_RARA2)
+```
+
+
+
+
+```{r}
+RAR_pdb <- read.pdb("1dkf.pdb")
+bs <- binding.site(RAR_pdb)
+print(bs$resnames)
+```
+
+
+
+
+
